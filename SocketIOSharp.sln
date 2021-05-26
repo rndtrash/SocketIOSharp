@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketIOSharp", "SocketIOSharp\SocketIOSharp.csproj", "{D76AEAE8-3088-4DEB-9B21-C49191B14523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketIOSharpExample", "SocketIOSharpExample\SocketIOSharpExample.csproj", "{FB6E4DCF-ACAE-4779-89DB-6EF3F8E29452}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineIOSharp", "EngineIOSharp\EngineIOSharp.csproj", "{15CC597B-787F-4D77-8A52-167644365E6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineIOSharp.Tests", "EngineIOSharpTests\EngineIOSharp.Tests.csproj", "{E37A213D-09E0-442F-9C22-E46D3953606F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D76AEAE8-3088-4DEB-9B21-C49191B14523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76AEAE8-3088-4DEB-9B21-C49191B14523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76AEAE8-3088-4DEB-9B21-C49191B14523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76AEAE8-3088-4DEB-9B21-C49191B14523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6E4DCF-ACAE-4779-89DB-6EF3F8E29452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6E4DCF-ACAE-4779-89DB-6EF3F8E29452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6E4DCF-ACAE-4779-89DB-6EF3F8E29452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6E4DCF-ACAE-4779-89DB-6EF3F8E29452}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CC597B-787F-4D77-8A52-167644365E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CC597B-787F-4D77-8A52-167644365E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CC597B-787F-4D77-8A52-167644365E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CC597B-787F-4D77-8A52-167644365E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E37A213D-09E0-442F-9C22-E46D3953606F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E37A213D-09E0-442F-9C22-E46D3953606F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E37A213D-09E0-442F-9C22-E46D3953606F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E37A213D-09E0-442F-9C22-E46D3953606F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
