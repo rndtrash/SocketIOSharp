@@ -8,4 +8,8 @@
       <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EngineIOSharp\EngineIOSharp.csproj" />
+    </ItemGroup>
+
 </Project>

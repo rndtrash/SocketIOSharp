@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Specialized;
-using SocketIOSharp.Transport;
+using System.Data;
+using EngineIOSharp;
 
 namespace SocketIOSharp
 {
     public class SocketIOClient
     {
         public string URL => _URL;
-        public ConnectionStatus ConnectionStatus => _aTransport.ConnectionStatus;
+        public ConnectionState ConnectionState => _Transport.ConnState;
 
-        private ATransport _aTransport;
+        private Transport _Transport;
         private string _URL;
 
         public SocketIOClient(Uri uri, NameValueCollection query) : this(uri.ToString(), query)
@@ -21,13 +22,13 @@ namespace SocketIOSharp
             var ub = new UriBuilder(url);
             _URL = ub.Uri.ToString();
             
-            _aTransport = new SIOWebSocket(this);
-            _aTransport.Connect();
+            //_Transport = new SIOWebSocket(this);
+            //_Transport.Connect();
         }
 
         ~SocketIOClient()
         {
-            _aTransport.Disconnect();
+            _Transport.Close();
         }
     }
 }

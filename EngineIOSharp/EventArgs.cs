@@ -14,4 +14,14 @@ namespace EngineIOSharp
             this.description = description;
         }
     }
+
+    public class PacketEventArgs : EventArgs
+    {
+        public Packet packet;
+
+        public PacketEventArgs(Packet packet)
+        {
+            this.packet = packet;
+        }
+    }
 }
