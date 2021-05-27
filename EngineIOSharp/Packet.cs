@@ -33,12 +33,12 @@ namespace EngineIOSharp
                 : Encode(Type, (string) Data);
         }
 
-        private byte[] Encode(string type, string data)
+        private static byte[] Encode(string type, string data)
         {
             return Encoding.ASCII.GetBytes(Parser.PacketTypes[type] + data);
         }
 
-        private byte[] EncodeBuffer(byte[] data, bool supportsBinary)
+        private static byte[] EncodeBuffer(byte[] data, bool supportsBinary)
         {
             // only 'message' packets can contain binary, so the type prefix is not needed
             return supportsBinary ? data : Encoding.ASCII.GetBytes("b" + Convert.ToBase64String(data));

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace EngineIOSharp
@@ -13,9 +13,9 @@ namespace EngineIOSharp
 
         protected Uri uri;
         protected Dictionary<string, string> query;
+        protected bool _writable = false;
 
         private ConnectionState _connectionState = ConnectionState.Closed;
-        private bool _writable = false;
 
         protected Transport(Uri uri, Dictionary<string, string> query = null)
         {
@@ -29,6 +29,11 @@ namespace EngineIOSharp
             Events.Add("packet", null);
             Events.Add("error", null);
             Events.Add("close", null);
+        }
+
+        ~Transport()
+        {
+            Close();
         }
 
         public void Error(string type, string description)
@@ -72,6 +77,11 @@ namespace EngineIOSharp
 
         protected abstract void Write(Packet[] packets);
 
+        protected void OnData(byte[] data)
+        {
+            OnData(Encoding.ASCII.GetString(data));
+        }
+        
         protected void OnData(string data)
         {
             var packet = Parser.DecodePacket(data);
@@ -88,9 +98,9 @@ namespace EngineIOSharp
             var pairs = new string[query.Count];
 
             var i = 0;
-            foreach (var q in query)
+            foreach (var (key, value) in query)
             {
-                pairs[i++] = HttpUtility.UrlEncode(q.Key) + "=" + HttpUtility.UrlEncode(q.Value);
+                pairs[i++] = HttpUtility.UrlEncode(key) + "=" + HttpUtility.UrlEncode(value);
             }
             
             return "?" + string.Join("&", pairs);

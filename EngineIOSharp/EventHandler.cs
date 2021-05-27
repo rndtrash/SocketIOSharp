@@ -72,6 +72,11 @@ namespace EngineIOSharp
             }
         }
 
+        public void Emit(string eventName)
+        {
+            Emit(eventName, EventArgs.Empty);
+        }
+
         public void Emit(string eventName, EventArgs e)
         {
             if (!Events.ContainsKey(eventName) || Events[eventName] == null)

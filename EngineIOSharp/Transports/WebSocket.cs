@@ -7,22 +7,56 @@ namespace EngineIOSharp.Transports
 {
     public class WebSocket : Transport
     {
-        protected WebsocketClient _webSocket;
+        private readonly WebsocketClient _webSocket;
         
         public WebSocket(Uri uri, Dictionary<string, string> query = null, bool isSecure = true, string timestampParam = "t", bool timestampRequests = false) : base(uri, query)
         {
             GenerateURI(isSecure, timestampParam, timestampRequests);
             _webSocket = new WebsocketClient(this.uri);
+            
+            // TODO: add remaining events for _webSocket
+            _webSocket.MessageReceived.Subscribe(delegate(ResponseMessage message)
+            {
+                switch (message.MessageType)
+                {
+                    case WebSocketMessageType.Binary:
+                        OnData(message.Binary);
+                        break;
+                    case WebSocketMessageType.Text:
+                        OnData(message.Text);
+                        break;
+                }
+            });
+            _webSocket.DisconnectionHappened.Subscribe(delegate(DisconnectionInfo info)
+            {
+                if (info.Type == DisconnectionType.Error)
+                {
+                    Console.WriteLine(info.Exception);
+                    Error(info.Type.ToString(), info.Exception.Message);
+                }
+
+                CloseConnection();
+            });
         }
 
         protected override void OpenConnection()
         {
-            _webSocket.Start();
-            //throw new System.NotImplementedException();
+            try
+            {
+                _webSocket.StartOrFail();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         protected override void CloseConnection()
         {
+            if (!_webSocket.IsRunning)
+                return;
+            
             try
             {
                 _webSocket.StopOrFail(WebSocketCloseStatus.Empty, "");
@@ -31,14 +65,21 @@ namespace EngineIOSharp.Transports
             {
                 Console.WriteLine(e);
                 Emit("error", new ErrorEventArgs("WebSocketException", "Task failed successfully????"));
-                throw;
             }
-            //throw new System.NotImplementedException();
         }
 
         protected override void Write(Packet[] packets)
         {
-            throw new System.NotImplementedException();
+            _writable = false;
+            
+            foreach (var packet in packets)
+            {
+                var encoded = packet.Encode(true);
+                _webSocket.Send(encoded);
+            }
+
+            _writable = true;
+            Emit("drain");
         }
 
         private void GenerateURI(bool isSecure, string timestampParam, bool timestampRequests)
