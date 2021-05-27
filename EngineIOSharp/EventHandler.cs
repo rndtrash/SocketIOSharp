@@ -74,7 +74,7 @@ namespace EngineIOSharp
 
         public void Emit(string eventName, EventArgs e)
         {
-            if (!Events.ContainsKey(eventName))
+            if (!Events.ContainsKey(eventName) || Events[eventName] == null)
                 return;
             
             Events[eventName].Invoke(this, e);

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using SocketIOSharp;
 
 namespace SocketIOSharpExample
@@ -10,7 +10,7 @@ namespace SocketIOSharpExample
         {
             Console.WriteLine("Hello World!");
 
-            var sio = new SocketIOClient("wss://scotland-club.herokuapp.com/socket.io/", new NameValueCollection {{"nickname", "scotland"}});
+            var sio = new SocketIOClient("wss://scotland-club.herokuapp.com/socket.io/", new Dictionary<string, string> {{"nickname", "scotland"}});
             
             while (true) {}
         }

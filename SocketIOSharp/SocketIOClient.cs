@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Data;
 using EngineIOSharp;
+using EngineIOSharp.Transports;
 
 namespace SocketIOSharp
 {
@@ -13,21 +14,24 @@ namespace SocketIOSharp
         private Transport _Transport;
         private string _URL;
 
-        public SocketIOClient(Uri uri, NameValueCollection query) : this(uri.ToString(), query)
+        public SocketIOClient(Uri uri, Dictionary<string, string> query) : this(uri.ToString(), query)
         {
+            throw new NotImplementedException();
         }
         
-        public SocketIOClient(string url, NameValueCollection query)
+        public SocketIOClient(string url, Dictionary<string, string> query)
         {
+            throw new NotImplementedException();
             var ub = new UriBuilder(url);
             _URL = ub.Uri.ToString();
             
-            //_Transport = new SIOWebSocket(this);
+            _Transport = new WebSocket(ub.Uri, query);
             //_Transport.Connect();
         }
 
         ~SocketIOClient()
         {
+            throw new NotImplementedException();
             _Transport.Close();
         }
     }

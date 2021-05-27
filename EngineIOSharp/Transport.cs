@@ -1,21 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Xml;
+using System.Linq;
+using System.Web;
 
 namespace EngineIOSharp
 {
     public abstract class Transport : EventHandler
     {
         public bool Writable => _writable;
-        
         public ConnectionState ConnState => _connectionState;
+
+        protected Uri uri;
+        protected Dictionary<string, string> query;
 
         private ConnectionState _connectionState = ConnectionState.Closed;
         private bool _writable = false;
-        
-        protected Transport(Dictionary<string, string> query)
+
+        protected Transport(Uri uri, Dictionary<string, string> query = null)
         {
+            this.query = query ?? new Dictionary<string, string>();
+            this.uri = uri;
+            
+            this.query.Add("EIO", Parser.Protocol.ToString());
+            
             Events.Add("open", null);
             // Events.Add("drain", null);
             Events.Add("packet", null);
@@ -73,6 +81,19 @@ namespace EngineIOSharp
         protected void OnPacket(Packet packet)
         {
             Emit("packet", new PacketEventArgs(packet));
+        }
+
+        protected static string MakeQuery(Dictionary<string, string> query)
+        {
+            var pairs = new string[query.Count];
+
+            var i = 0;
+            foreach (var q in query)
+            {
+                pairs[i++] = HttpUtility.UrlEncode(q.Key) + "=" + HttpUtility.UrlEncode(q.Value);
+            }
+            
+            return "?" + string.Join("&", pairs);
         }
 
     }
